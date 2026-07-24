@@ -58,18 +58,11 @@ Run the following command from the project directory:
 accelerate launch \
   examples/wanvideo/model_training/train_ttt_cfg_edit.py \
   --config train_mllm_ti2v.yaml \
-  --output_path /home/liuyueyi/DiffSynth-Studio/outputs/wan-ttt-wan2.1-noyibu \
-  --dataset_csv /home/liuyueyi/Wan2.2-main/test_datasets/datasets.csv \
-  --dataset_root /home/liuyueyi/Wan2.2-main/test_datasets \
+  --output_path /home/outputs \
+  --dataset_csv /home/datasets.csv \
+  --dataset_root /home/test_datasets \
   --semantic_mask_config configs/semantic_mask_config.yaml \
   --sweep_train_steps 70 \
   --sweep_learning_rates 3e-5
 ```
 
-## Outputs
-
-Results are written to:
-
-```text
-/home/liuyueyi/DiffSynth-Studio/outputs/wan-ttt-wan2.1-noyibu/
-```
