@@ -1,0 +1,57 @@
+# =============================================================================
+# Semantic Video Mask Generator Configuration
+# =============================================================================
+# This config drives semantic_video_mask.py, which:
+#   1. Uses an LLM to identify objects that differ between two prompts.
+#   2. Uses Grounding-DINO to detect those objects in video frames.
+#   3. Uses SAM2 to segment & track them across the entire video.
+# =============================================================================
+
+# ---- Input ----
+video_path: "path/to/reference_video.mp4"
+original_prompt: "A jeep is moving on a road."
+modified_prompt: "A horse is running on a road."
+output_dir: "./outputs/semantic_masks"
+
+# ---- LLM Settings ----
+llm:
+  model_name: "./models/semantic/Qwen3-VL-32B-Instruct"
+  device: "cuda"
+  torch_dtype: "bfloat16"          # "float16", "bfloat16", or "float32"
+  max_new_tokens: 150
+  do_sample: false
+  system_prompt: >
+    You are an AI assistant that analyzes text prompts for video editing.
+    Your task is to identify the core objects or concepts that need to be
+    added, removed, or changed based on a 'source' and 'target' prompt. 
+    Your output should be an object in the source video and this object should be changed in the target prompt.
+    The main goal of video editing is to remain the general movement in the video.
+    Only selected the objects that are most relevant to the edited part described in the target prompt. 
+    For example, if the original prompt is a jeep is moving on the road, and the target prompt is a jeep is moving on the snow, then the road is more important than the jeep.
+    Therefore, you need to select the road instead of the jeep.
+    Moreover, if the editing prompt need to add some objects, you need to select the background in the original video where the objects will be added.
+    Output ONLY a comma-separated list of short visual grounding phrases
+    (nouns or noun phrases) suitable for an object detection model.
+    Do NOT output any explanation, only the comma-separated list.
+
+# ---- Grounding-DINO Settings ----
+grounding_dino:
+  model_id: "./models/semantic/grounding-dino-tiny"
+  box_threshold: 0.3
+  text_threshold: 0.25
+  device: "cuda"
+  # Frame indices on which to run detection (0-indexed).
+  # Detected boxes are forwarded to SAM2 as prompts on those frames.
+  detection_frame_indices: [0]
+
+# ---- SAM2 Settings ----
+sam2:
+  # Load the bundled SAM2 checkpoint.
+  config_file: "configs/sam2.1/sam2.1_hiera_l.yaml"
+  checkpoint: "./models/semantic/sam2.1_hiera_large.pt"
+  device: "cuda"
+
+# ---- Output Settings ----
+save_masks: true                # Save the composite mask tensor to a .pt file
+save_visualization: true        # Save per-frame overlay PNGs
+mask_format: "torch"            # "torch" (.pt) or "numpy" (.npy)
