@@ -40,7 +40,7 @@ pip install -r requirements-ttt.txt
 The launch command reads `datasets.csv` and the corresponding video files from:
 
 ```text
-/home/liuyueyi/Wan2.2-main/test_datasets/
+https://huggingface.co/datasets/liuyueyi-8/ElasticTTT-video-editing-dataset
 ```
 
 Video paths in `datasets.csv` are resolved relative to this dataset root.
