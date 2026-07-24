@@ -3,7 +3,8 @@
 
 
 
-# Wan2.2 TI2V-5B TTT CFG Edit
+
+# Preview：
 
 This project performs per-video test-time LoRA training and prompt-based video editing with Wan2.2-TI2V-5B. Semantic editing masks are generated with Qwen3-VL, Grounding-DINO, and SAM2.
 
