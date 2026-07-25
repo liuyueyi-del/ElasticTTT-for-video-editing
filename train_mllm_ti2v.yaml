@@ -5,8 +5,8 @@ dataset_metadata_path: null
 dataset_repeat: 1
 dataset_num_workers: 0
 data_file_keys: "name"
-model_id_with_origin_paths: "Wan-AI/Wan2.2-TI2V-5B:diffusion_pytorch_model*.safetensors,Wan-AI/Wan2.2-TI2V-5B:models_t5_umt5-xxl-enc-bf16.pth,Wan-AI/Wan2.2-TI2V-5B:Wan2.2_VAE.pth"
-#model_id_with_origin_paths: "Wan-AI/Wan2.1-T2V-1.3B:diffusion_pytorch_model*.safetensors,Wan-AI/Wan2.1-T2V-1.3B:models_t5_umt5-xxl-enc-bf16.pth,Wan-AI/Wan2.1-T2V-1.3B:Wan2.1_VAE.pth"
+#model_id_with_origin_paths: "Wan-AI/Wan2.2-TI2V-5B:diffusion_pytorch_model*.safetensors,Wan-AI/Wan2.2-TI2V-5B:models_t5_umt5-xxl-enc-bf16.pth,Wan-AI/Wan2.2-TI2V-5B:Wan2.2_VAE.pth"
+model_id_with_origin_paths: "Wan-AI/Wan2.1-T2V-1.3B:diffusion_pytorch_model*.safetensors,Wan-AI/Wan2.1-T2V-1.3B:models_t5_umt5-xxl-enc-bf16.pth,Wan-AI/Wan2.1-T2V-1.3B:Wan2.1_VAE.pth"
 # Wan2.2-T2V-14B is not a valid repo. A14B is dual-DiT + Wan2.1 VAE (not Wan2.2_VAE). If ModelScope 404: export DIFFSYNTH_DOWNLOAD_SOURCE=huggingface
 #model_id_with_origin_paths: "Wan-AI/Wan2.2-T2V-A14B:high_noise_model/diffusion_pytorch_model*.safetensors,Wan-AI/Wan2.2-T2V-A14B:low_noise_model/diffusion_pytorch_model*.safetensors,Wan-AI/Wan2.2-T2V-A14B:models_t5_umt5-xxl-enc-bf16.pth,Wan-AI/Wan2.2-T2V-A14B:Wan2.1_VAE.pth"
 #model_id_with_origin_paths: "Wan-AI/Wan2.1-T2V-14B:diffusion_pytorch_model*.safetensors,Wan-AI/Wan2.1-T2V-14B:models_t5_umt5-xxl-enc-bf16.pth,Wan-AI/Wan2.1-T2V-14B:Wan2.1_VAE.pth"
@@ -18,23 +18,23 @@ save_steps: null
 #grounding_phrases: ["white car"]
 
 train_data:
-  n_sample_frames: 41
+  n_sample_frames: 81
   width: 832
   height: 480
   sample_start_idx: 0
   sample_frame_rate: 1
 
 validation_data:
-  video_length: 41
+  video_length: 81
   width: 832
   height: 480
   num_inference_steps: 50
   guidance_scale: 6
-  source_cfg_scale: 3
+  source_cfg_scale: 2
   reference_strength: 0.95
   reference_init_strength: 1
-  reference_fg_init_strength: 0.98
-  reference_bg_init_strength: 0.72
+  reference_fg_init_strength: 0.97
+  reference_bg_init_strength: 0.55
   reference_strict_timestep_align: true
   feather_radius: 3
   box_scale: 1.0
@@ -68,7 +68,7 @@ beta_schedule: "linear"
 prediction_type: "epsilon"
 noise_scheduler_type: "flow"
 flow_shift: 3.0
-target_noise_scale: 0.1
+target_noise_scale: 0.2
 flow_align_ratio: 0
 flow_align_cfg_scale: 7.5
 flow_align_gamma: 1.0
